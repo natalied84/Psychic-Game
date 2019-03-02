@@ -1,9 +1,14 @@
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 var wins = 0;
 var losses = 0;
-var guesses = 9;
+var guesses = 8;
 var guessed = [];
 
+winsText.textContent = " ";
+lossesText.textContent = " ";
+guessesLeft.textContent = " ";
+lettersGuessed.textContent = " ";
+endStatement.textContent = "I'm thinking of a letter,";
 
 
 
@@ -14,7 +19,7 @@ var winsText = document.getElementById("games-won");
 var lossesText = document.getElementById("games-lost");
 var guessesLeft = document.getElementById("guesses-left");
 var lettersGuessed = document.getElementById("letters-guessed");
-var directions = document.getElementById("game-directions");
+var endStatement = document.getElementById("end-statement");
 
 // Randomly chooses a choice from the options array. This is the Computer's guess.
 
@@ -25,13 +30,7 @@ console.log(guessed);
 document.onkeyup = function (event) {
 
     var userGuess = event.key;
-
-    directions.textContent = " ";
-    winsText.textContent = "Games won: " + wins;
-    lossesText.textContent = "Games lost: " + losses;
-    guessesLeft.textContent = "Guesses left: " + (guesses + 1);
-    lettersGuessed.textContent = "Letters guessed: " + guessed;
-
+    endStatement.textContent = " ";
     console.log("U: " + userGuess);
     console.log("C: " + computerGuess);
     console.log(computerChoices.includes(userGuess))
@@ -40,43 +39,40 @@ document.onkeyup = function (event) {
 
         if (guesses === 0) {
 
-            guessesLeft.textContent = "Guesses left: 0";
-            guesses = 9;
+            guesses = 8;
             guessed = [];
             losses++;
-            lettersGuessed.textContent = "Letters guessed: " + guessed;
-            directions.textContent = "You lose! I'm thinking of a new letter guess a new letter to play again.";
-            lossesText.textContent = "Games lost: " + losses;
             computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            endStatement.textContent = "You lose! I'm thinking of a new letter guess a new letter to play again."
+            lossesText.textContent = losses;
+            guessesLeft.textContent = guesses + 1;
 
         } else if (guessed.includes(userGuess)) {
 
-            directions.textContent = "You already guessed that! Guess again.";
+            alert("You already guessed that! Guess again.");
             console.log(guessed);
 
         } else if (userGuess != computerGuess) {
 
             guesses--;
             guessed.push(userGuess);
-            guessesLeft.textContent = "Guesses left: " + (guesses + 1);
-            lettersGuessed.textContent = "Letters guessed: " + guessed;
-            directions.textContent = "Wrong letter, keep guessing!";
+            lettersGuessed.textContent = guessed;
+            guessesLeft.textContent = guesses + 1;
 
         } else {
 
-            guessesLeft.textContent = "Guesses left: " + (guesses + 1);
-            lettersGuessed.textContent = "Letters guessed: " + guessed;
-            guesses = 9;
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            guesses = 8;
             guessed = [];
             wins++;
-            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-            directions.textContent = "You won! I'm thinking of a new letter guess a new letter to play again.";
-            winsText.textContent = "Games won: " + wins;
+            winsText.textContent = wins;
+            endStatement.textContent = "You won! I'm thinking of a new letter guess a new letter to play again."
+            guessesLeft.textContent = guesses + 1;
 
         }
     } else {
 
-        directions.textContent = "Make sure you only press letters!";
+        alert("You pressed a non-letter!")
 
     }
 
