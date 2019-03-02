@@ -64,7 +64,7 @@ document.onkeyup = function (event) {
 
         } else {
 
-            var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
             guessesLeft.textContent = "Guesses left: " + (guesses + 1);
             lettersGuessed.textContent = "Letters guessed: " + guessed;
             guesses = 9;
