@@ -69,6 +69,7 @@ document.onkeyup = function (event) {
             guesses = 9;
             guessed = [];
             wins++;
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
             directions.textContent = "You won! I'm thinking of a new letter guess a new letter to play again.";
             winsText.textContent = "Games won: " + wins;
 
